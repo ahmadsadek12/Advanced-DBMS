@@ -1,0 +1,13 @@
+node_modules
+client/dist
+.DS_Store
+*.log
+.env
+*.docx
+demo.txt
+make_report.js
+make_queries_doc.js
+diagrams/er.pdf
+README.md
+/package.json
+/package-lock.json

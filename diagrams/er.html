@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ER Diagram - Movie Ratings</title>
+<style>
+  body {
+    font-family: Calibri, Arial, sans-serif;
+    margin: 24px;
+    color: #111;
+    background: #fff;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px 0; }
+  h2 { font-size: 16px; margin: 28px 0 8px; }
+  .sub { font-size: 13px; margin: 0 0 14px; }
+  .legend { font-size: 12px; margin-bottom: 12px; }
+  .legend i {
+    display: inline-block;
+    width: 14px;
+    height: 12px;
+    border: 1px solid #333;
+    vertical-align: middle;
+    margin: 0 4px 0 12px;
+  }
+  .notes { font-size: 13px; max-width: 900px; line-height: 1.4; }
+  .notes li { margin-bottom: 4px; }
+  .docs { display: flex; gap: 24px; flex-wrap: wrap; }
+  .doc { border: 1px solid #333; width: 340px; font-size: 12px; }
+  .doc h3 {
+    margin: 0;
+    padding: 6px 8px;
+    background: #e2efda;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+  }
+  .doc pre {
+    margin: 0;
+    padding: 8px 10px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    white-space: pre-wrap;
+  }
+  @page { size: A3 landscape; margin: 10mm; }
+  @media print {
+    body { margin: 0; }
+    svg { max-width: 100%; height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Figure 1. ER Diagram</h1>
+<p class="sub">Movie Ratings (MySQL). Crow’s foot. Composite keys on the two relationship tables.</p>
+<p class="legend">
+  <i style="background:#deebf7"></i> entity
+  <i style="background:#fff2cc"></i> associative entity
+  <i style="background:#eeeeee"></i> audit table (triggers)
+  &nbsp;&nbsp;PK primary key &nbsp; FK foreign key &nbsp; UQ unique
+</p>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="720" viewBox="0 0 1160 720" font-family="Calibri, Arial, sans-serif" font-size="12">
+  <defs>
+    <marker id="crow" markerWidth="14" markerHeight="12" refX="13" refY="6" orient="auto">
+      <path d="M13,6 L1,1 M13,6 L1,6 M13,6 L1,11" stroke="#111" fill="none" stroke-width="1.2"/>
+    </marker>
+    <marker id="one" markerWidth="8" markerHeight="12" refX="6" refY="6" orient="auto">
+      <line x1="6" y1="1" x2="6" y2="11" stroke="#111" stroke-width="1.6"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="40" width="180" height="150" fill="#deebf7" stroke="#111"/>
+  <rect x="30" y="40" width="180" height="22" fill="#2e75b6" stroke="#111"/>
+  <text x="120" y="56" fill="#fff" text-anchor="middle" font-weight="bold">people</text>
+  <text x="42" y="82"><tspan font-weight="bold">PK</tspan> person_id</text>
+  <text x="42" y="102">name</text>
+  <text x="42" y="122">date_of_birth</text>
+  <text x="42" y="142">biography</text>
+
+  <rect x="270" y="20" width="210" height="185" fill="#fff2cc" stroke="#111"/>
+  <rect x="270" y="20" width="210" height="22" fill="#bf8f00" stroke="#111"/>
+  <text x="375" y="36" fill="#fff" text-anchor="middle" font-weight="bold">movie_people</text>
+  <text x="282" y="62"><tspan font-weight="bold">PK FK</tspan> movie_id</text>
+  <text x="282" y="82"><tspan font-weight="bold">PK FK</tspan> person_id</text>
+  <text x="282" y="102"><tspan font-weight="bold">PK</tspan> role</text>
+  <text x="282" y="122">character_name</text>
+  <text x="282" y="142">credit_order</text>
+  <text x="282" y="168" font-size="11" fill="#444">role in (actor, director, writer, producer)</text>
+
+  <rect x="540" y="12" width="210" height="205" fill="#deebf7" stroke="#111"/>
+  <rect x="540" y="12" width="210" height="22" fill="#2e75b6" stroke="#111"/>
+  <text x="645" y="28" fill="#fff" text-anchor="middle" font-weight="bold">movies</text>
+  <text x="552" y="54"><tspan font-weight="bold">PK</tspan> movie_id</text>
+  <text x="552" y="74">title</text>
+  <text x="552" y="94">release_year</text>
+  <text x="552" y="114">runtime</text>
+  <text x="552" y="134">description</text>
+  <text x="552" y="154">created_at</text>
+  <text x="552" y="180" font-size="11" fill="#444">runtime &gt; 0, year 1888–2100</text>
+  <text x="552" y="196" font-size="11" fill="#444">FULLTEXT (title, description)</text>
+
+  <rect x="800" y="40" width="190" height="115" fill="#fff2cc" stroke="#111"/>
+  <rect x="800" y="40" width="190" height="22" fill="#bf8f00" stroke="#111"/>
+  <text x="895" y="56" fill="#fff" text-anchor="middle" font-weight="bold">movie_keywords</text>
+  <text x="812" y="82"><tspan font-weight="bold">PK FK</tspan> movie_id</text>
+  <text x="812" y="102"><tspan font-weight="bold">PK FK</tspan> keyword_id</text>
+
+  <rect x="1020" y="44" width="130" height="100" fill="#deebf7" stroke="#111"/>
+  <rect x="1020" y="44" width="130" height="22" fill="#2e75b6" stroke="#111"/>
+  <text x="1085" y="60" fill="#fff" text-anchor="middle" font-weight="bold">keywords</text>
+  <text x="1032" y="86"><tspan font-weight="bold">PK</tspan> keyword_id</text>
+  <text x="1032" y="106">name (UQ)</text>
+
+  <rect x="270" y="390" width="185" height="145" fill="#deebf7" stroke="#111"/>
+  <rect x="270" y="390" width="185" height="22" fill="#2e75b6" stroke="#111"/>
+  <text x="362" y="406" fill="#fff" text-anchor="middle" font-weight="bold">users</text>
+  <text x="282" y="432"><tspan font-weight="bold">PK</tspan> user_id</text>
+  <text x="282" y="452">username (UQ)</text>
+  <text x="282" y="472">email (UQ)</text>
+  <text x="282" y="492">created_at</text>
+
+  <rect x="540" y="350" width="210" height="185" fill="#deebf7" stroke="#111"/>
+  <rect x="540" y="350" width="210" height="22" fill="#2e75b6" stroke="#111"/>
+  <text x="645" y="366" fill="#fff" text-anchor="middle" font-weight="bold">ratings</text>
+  <text x="552" y="392"><tspan font-weight="bold">PK</tspan> rating_id</text>
+  <text x="552" y="412"><tspan font-weight="bold">FK</tspan> user_id</text>
+  <text x="552" y="432"><tspan font-weight="bold">FK</tspan> movie_id</text>
+  <text x="552" y="452">rating</text>
+  <text x="552" y="472">rated_at</text>
+  <text x="552" y="498" font-size="11" fill="#444">UQ (user_id, movie_id)</text>
+  <text x="552" y="514" font-size="11" fill="#444">rating between 1 and 10</text>
+
+  <rect x="800" y="365" width="220" height="180" fill="#eeeeee" stroke="#111"/>
+  <rect x="800" y="365" width="220" height="22" fill="#666" stroke="#111"/>
+  <text x="910" y="381" fill="#fff" text-anchor="middle" font-weight="bold">rating_log</text>
+  <text x="812" y="407"><tspan font-weight="bold">PK</tspan> log_id</text>
+  <text x="812" y="427">rating_id</text>
+  <text x="812" y="447">user_id</text>
+  <text x="812" y="467">movie_id</text>
+  <text x="812" y="487">old_rating, new_rating</text>
+  <text x="812" y="507">action, changed_at</text>
+  <text x="812" y="528" font-size="11" fill="#444">no FK on purpose (audit)</text>
+
+  <line x1="210" y1="115" x2="270" y2="115" stroke="#111" stroke-width="1.25" marker-start="url(#one)" marker-end="url(#crow)"/>
+  <text x="218" y="108" font-size="11">1</text>
+  <text x="248" y="108" font-size="11">N</text>
+
+  <line x1="480" y1="100" x2="540" y2="100" stroke="#111" stroke-width="1.25" marker-start="url(#crow)" marker-end="url(#one)"/>
+  <text x="488" y="93" font-size="11">N</text>
+  <text x="520" y="93" font-size="11">1</text>
+
+  <line x1="750" y1="100" x2="800" y2="100" stroke="#111" stroke-width="1.25" marker-start="url(#one)" marker-end="url(#crow)"/>
+  <text x="758" y="93" font-size="11">1</text>
+  <text x="782" y="93" font-size="11">N</text>
+
+  <line x1="990" y1="100" x2="1020" y2="100" stroke="#111" stroke-width="1.25" marker-start="url(#crow)" marker-end="url(#one)"/>
+  <text x="992" y="93" font-size="11">N</text>
+  <text x="1006" y="93" font-size="11">1</text>
+
+  <line x1="645" y1="217" x2="645" y2="350" stroke="#111" stroke-width="1.25" marker-start="url(#one)" marker-end="url(#crow)"/>
+  <text x="652" y="270" font-size="11">1</text>
+  <text x="652" y="330" font-size="11">N</text>
+
+  <line x1="455" y1="455" x2="540" y2="455" stroke="#111" stroke-width="1.25" marker-start="url(#one)" marker-end="url(#crow)"/>
+  <text x="468" y="448" font-size="11">1</text>
+  <text x="512" y="448" font-size="11">N</text>
+
+  <line x1="750" y1="455" x2="800" y2="455" stroke="#111" stroke-width="1.25" marker-start="url(#one)" marker-end="url(#crow)"/>
+  <text x="758" y="448" font-size="11">1</text>
+  <text x="778" y="448" font-size="11">N</text>
+
+  <text x="375" y="250" font-size="11" text-anchor="middle">appears in</text>
+  <text x="895" y="28" font-size="11" text-anchor="middle">tagged with</text>
+  <text x="645" y="340" font-size="11" text-anchor="middle">rated</text>
+</svg>
+
+<div class="notes">
+  <p><b>Cardinality</b></p>
+  <ul>
+    <li>movies N:M keywords via movie_keywords. 100 keywords is realistic (heist, neo-noir, folk horror). 100 genres would not have been.</li>
+    <li>movies N:M people via movie_people. role is part of the PK because the same person can direct and write the same film.</li>
+    <li>character_name / credit_order belong to the relationship, not to people.</li>
+    <li>users 1:N ratings, movies 1:N ratings. One row per (user, movie).</li>
+    <li>rating_log is 1:N from ratings in practice, but it is not a real FK. Deletes still leave history.</li>
+  </ul>
+</div>
+
+<h2>Indexes (chosen for the demo queries)</h2>
+<ul class="notes">
+  <li>FULLTEXT ft_movies (title, description) — homepage MATCH AGAINST</li>
+  <li>idx_ratings_movie (movie_id), idx_ratings_user (user_id), idx_ratings_rated_at (rated_at)</li>
+  <li>idx_mp_person (person_id), idx_mp_role (role) — filmography / credit lookups. movie_id is already the left column of the PK</li>
+  <li>idx_mk_keyword (keyword_id) — keyword average join. movie_id is already the left column of the PK</li>
+  <li>idx_movies_year, idx_movies_title, idx_log_movie</li>
+  <li>Mongo movie_reviews: movieId, userId, tags</li>
+</ul>
+
+<h2>Figure 2. MongoDB documents</h2>
+<p class="sub">One collection. movieId / userId match MySQL ids but there is no foreign key. Numeric ratings stay in MySQL. Optional fields only exist on some documents.</p>
+
+<div class="docs">
+  <div class="doc">
+    <h3>movie_reviews</h3>
+    <pre>{
+  _id: ObjectId,
+  movieId: 2,          // movies.movie_id  (reference)
+  userId: 4,           // users.user_id    (reference)
+  review: "the stairs shot...",
+  tags: ["class", "thriller"],     // optional, embedded
+  watchedOn: {                     // optional, embedded
+    platform: "Netflix",
+    date: "2025-10-04"
+  },
+  spoiler: false,                  // optional
+  language: "en",                  // optional
+  metadata: {                      // optional, embedded
+    sentiment: "positive",
+    helpfulVotes: 22,
+    spoilerRisk: "high"
+  }
+}</pre>
+  </div>
+</div>
+
+<p class="notes" style="margin-top:18px">
+  No rating field here — MySQL ratings is the source of truth.<br>
+  Indexes on movie_reviews: movieId, userId, tags.
+</p>
+
+</body>
+</html>
